@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_subcontractor_block_work_form" model="ir.ui.view">
+	    <field name="name">view.subcontractor.block.work.form</field>
+	    <field name="model">subcontractor.block.work</field>
+	    <field name="arch" type="xml">
+	        <form string="Block Work">
+	        	<header>
+	        		<button name='submit' type="object" string="Submit" class="oe_highlight" states="draft" groups="project_costing.group_project_costing_user"/>
+	        		<button name='validate' type="object" string="Validate" class="oe_highlight" states="submit" groups="project_costing.group_project_costing_manager"/>
+	        		<button name='cancel' type="object" string="Cancel"/>
+	        		<field name="state" widget="statusbar" statusbar_visible="draft,submit,validate"/>
+	        	</header>
+	        	<sheet>
+	        		<div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+	        		<group>
+	        			<group>
+	        				<field name="analytical_account_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	        				<field name="date"/>
+	        				<field name="bank_account"/>
+	        			</group>
+	        			<group>
+	        				<field name="subcontractor" domain="[('supplier','=', True)]"/>
+	        				<field name="subcontract"/>
+	        				<field name="valuation_no"/>
+	        			</group>
+	        		</group>
+	        		<notebook>
+	        			<page string="Block Work Line" name="block_work_line">
+	        				<field name="subcontractor_block_work_line_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+	        					<tree string="block work line tree" editable="bottom">
+	        						<field name="product_id"/>
+	        						<field name="description" required="1"/>
+	        						<field name="account_id"/>
+	        						<field name="qty_done"/>
+	        						<field name="unit_id"/>
+	        						<field name="rate"/>
+	        						<field name="amount" readonly="1"/>
+	        						<field name="done"/>
+	        						<field name="amount_due" readonly="1"/>
+	        					</tree>
+	        				</field>
+	        				
+	        				<group class="oe_subtotal_footer oe_right" colspan="2" name="block_work_total">
+	        					<field name="discount" string="Less: WHT"/>
+	        					<field name="amount_due" widget="monetary" readonly="1"/>
+                                <field name="discount_amount" readonly="1"/>
+                                <field name="previous_payment_amount" readonly="1"/>
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="total_amount_due" string="Amount Due"/>
+                                </div>
+                                <field name="total_amount_due" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" />
+                            </group>
+	        			</page>
+	        			<page name="previous_payment" string="Previous Payments">
+	        				<field name="block_work_previous_payment_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+        						<tree string="previous Payment" editable="bottom">
+        							<field name="name"/>
+        							<field name="amount"/>
+        						</tree>
+							</field>
+	        			</page>
+	        		</notebook>
+	        	</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="view_subcontractor_block_work_tree" model="ir.ui.view">
+	    <field name="name">view.subcontractor.block.work.tree</field>
+	    <field name="model">subcontractor.block.work</field>
+	    <field name="arch" type="xml">
+	    	<tree string="Block Worker Tree">
+	    		<field name="name"/>
+	    		<field name="analytical_account_id"/>
+	    		<field name="subcontractor"/>
+	    		<field name="subcontract"/>
+	    		<field name="date"/>
+	    	</tree>
+		</field>
+	</record>
+	
+	<record id="action_subcontractor_block_work" model="ir.actions.act_window">
+        <field name="name">Subcontractor Block Work</field>
+        <field name="res_model">subcontractor.block.work</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem
+        id="menu_action_subcontractor_block_work"
+        action="action_subcontractor_block_work"
+        parent="subcontract_payment.menu_action_subcontract_labour_invoice"
+        sequence="10" />
+</odoo>

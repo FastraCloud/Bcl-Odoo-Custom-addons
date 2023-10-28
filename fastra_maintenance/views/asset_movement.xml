@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="asset_movement_form_view" model="ir.ui.view">
+            <field name="name">asset.movement.form.view</field>
+            <field name="model">asset.movement</field>
+            <field name="arch" type="xml">
+                <form string="Asset Movement Form">
+                    <header>
+						<button name="set_to_open" class="btn-primary" string="Set To Open" type="object" attrs = "{'invisible':[('state','!=','draft')]}"/>
+						<button name="set_completed" class="btn-primary" string="Completed" type="object" attrs = "{'invisible':[('state','!=','open')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open,completed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="asset_registration_id"/>
+                                <field name="name"/>
+                                <field name="hire_cost"/>
+                                <field name="project_id" required="1"/>
+                                <field name="request_by"/>
+                            </group>
+                            <group>
+                                <field name="collection_date"/>
+                                <field name="return_date"/>
+                                <field name="no_of_days"/>
+                                <field name="amount_charged"/>
+                                <field name="cost_to_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="asset_movement_tree_view" model="ir.ui.view">
+            <field name="name">asset.movement.tree.view</field>
+            <field name="model">asset.movement</field>
+            <field name="arch" type="xml">
+                <tree string="Asset Movement Tree">
+                    <field name="name"/>
+                    <field name="asset_registration_id"/>
+                    <field name="hire_cost"/>
+                    <field name="project_id"/>
+                    <field name="collection_date"/>
+                    <field name="return_date"/>
+                    <field name="request_by"/>
+                    <field name="state"/>
+                    <field name="no_of_days"/>
+                    <field name="amount_charged"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="asset_movement_act_window" model="ir.actions.act_window">
+            <field name="name">Asset Movement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">asset.movement</field>
+            <field name="view_mode">tree,kanban,form,pivot,graph,activity</field>
+        </record>
+
+        <menuitem name="Asset Movement"
+                  id="asset_movement_menu_main"
+                  parent="maintenance_menu_root"
+                  action="asset_movement_act_window"
+                  sequence="20"
+        />
+
+    </data>
+</odoo>

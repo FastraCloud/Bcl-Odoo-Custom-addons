@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Sequences for block work -->
+        <record id="seq_block_work" model="ir.sequence">
+            <field name="name">Block Work</field>
+            <field name="code">block.work</field>
+            <field name="prefix">BW</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Sequences for iron bender -->
+        <record id="seq_iron_bender" model="ir.sequence">
+            <field name="name">Iron Bender</field>
+            <field name="code">iron.bender</field>
+            <field name="prefix">IB</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Sequences for purchase.order -->
+        <record id="seq_subcontractor_purchase_order" model="ir.sequence">
+            <field name="name">Subcontractor Contract Order</field>
+            <field name="code">subcontractor.purchase</field>
+            <field name="prefix">SUBC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

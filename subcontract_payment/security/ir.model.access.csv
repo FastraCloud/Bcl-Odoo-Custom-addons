@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_subcontractor_block_work,access.subcontractor.block.work,model_subcontractor_block_work,,1,1,1,1
+access_subcontractor_block_work_line,access.subcontractor.block.work.line,model_subcontractor_block_work_line,,1,1,1,1
+access_block_work_previous_payment,access.block.work.previous.payment,model_block_work_previous_payment,,1,1,1,1
+access_iron_bender,access.iron.bender,model_iron_bender,,1,1,1,1
+access_iron_bender_line,access.iron.bender.line,model_iron_bender_line,,1,1,1,1
+access_iron_bender_previous_payment,access.iron.bender.previous.payment,model_iron_bender_previous_payment,,1,1,1,1
+access_iron_bender_reinforcement_size,access.iron.bender.reinforcement.size,model_iron_bender_reinforcement_size,,1,1,1,1
+access_reinforcement_bar_size,access.reinforcement.bar.size,model_reinforcement_bar_size,,1,1,1,1

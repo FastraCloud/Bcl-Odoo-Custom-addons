@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="view_hr_payslip_form_inherit_analytical">
+	    <field name="name">view.hr.payslip.form.inherit.analytical</field>
+	    <field name="model">hr.payslip</field>
+	    <field name="inherit_id" ref="hr_payroll_account.view_hr_payslip_inherit_form"/>
+	    <field name="arch" type="xml">
+	    	<field name="account_analytical_id" position="replace"/>
+	    </field>
+	</record>
+	
+	<record model="ir.ui.view" id="view_hr_payslip_inherit_form_account_analytical">
+        <field name="name">view.hr.payslip.inherit.form.account.analytical</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <field name="credit_note" position="after">
+                <field name="account_analytical_id" required="0"/>
+            </field>
+        </field>
+    </record>
+</odoo>

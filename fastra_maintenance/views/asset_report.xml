@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="report_asset_maintenance"
+                model="asset.report"
+                string="Asset Report"
+                name="fastra_maintenance.report_asset_maintenance_pdf"
+                file="fastra_maintenance.report_asset_maintenance_pdf"
+                report_type="qweb-pdf"
+		/>
+
+        <template id="report_asset_maintenance_pdf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <t t-if="doc.type == 'project'">
+                                <center><h2>Asset Project Report</h2></center>
+
+                                <div class="row mt32 mb32" name="info">
+                                    <div class="col-auto mw-100 mb-2">
+                                        <strong>Period:</strong>
+                                        <span class="m-0" t-field='doc.from_date'/> - <span class="m-0" t-field='doc.to_date'/>
+                                    </div>
+                                </div>
+
+                                <table style="width:100%" class="table table-sm">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Asset</th>
+                                        <th>Hire cost/day</th>
+                                        <th>Project</th>
+                                        <th>Collection Date</th>
+                                        <th>Return Date</th>
+                                        <th>Request By</th>
+                                        <th>No of Days</th>
+                                        <th>Amount Charged</th>
+                                    </tr>
+                                    <t t-foreach="doc.get_movement_data()" t-as="line">
+                                        <tr>
+                                            <td><t t-esc="line.asset_registration_id and line.asset_registration_id.code"/></td>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td><t t-esc="line.hire_cost"/></td>
+                                            <td><t t-esc="line.project_id and line.project_id.name or ''"/></td>
+                                            <td><t t-esc="line.collection_date"/></td>
+                                            <td><t t-esc="line.return_date"/></td>
+                                            <td><t t-esc="line.request_by"/></td>
+                                            <td><t t-esc="line.no_of_days"/></td>
+                                            <td><t t-esc="line.amount_charged"/></td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </t>
+
+                            <t t-if="doc.type == 'asset'">
+                                <center><h2>Asset Report</h2></center>
+
+                                <table style="width:100%" class="table table-sm">
+                                    <tr>
+                                        <th>Code</th>
+                                        <th>Asset</th>
+                                        <th>Asset Code</th>
+                                        <th>Hire cost/day</th>
+                                        <th>Maintenance Cost</th>
+                                        <th>Replacement of Parts</th>
+                                        <th>Operator</th>
+                                        <th>Fuel</th>
+                                        <th>Total Dep Cost</th>
+                                    </tr>
+                                    <t t-foreach="doc.get_asset_data()" t-as="line">
+                                        <tr>
+                                            <td><t t-esc="line.asset_registration_id and line.asset_registration_id.code"/></td>
+                                            <td><t t-esc="line.name"/></td>
+                                            <td><t t-esc="line.asset_code"/></td>
+                                            <td><t t-esc="line.hire_cost"/></td>
+                                            <td><t t-esc="line.maintenance_cost"/></td>
+                                            <td><t t-esc="line.replacement_of_parts"/></td>
+                                            <td><t t-esc="line.operator"/></td>
+                                            <td><t t-esc="line.fuel"/></td>
+                                            <td><t t-esc="line.total_dep_cost"/></td>
+                                        </tr>
+                                    </t>
+                                </table>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

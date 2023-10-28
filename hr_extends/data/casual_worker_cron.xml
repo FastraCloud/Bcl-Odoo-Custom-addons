@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="ir_cron_casual_worker_available" model="ir.cron">
+	        <field name="name">Casual Worker Available</field>
+	        <field name="interval_number">1</field>
+	        <field name="interval_type">days</field>
+	        <field name="numbercall">-1</field>
+	        <field name="doall" eval="False"/>
+	        <field name="model_id" ref="model_casual_workers"/>
+	        <field name="code">model._run_reset_available_workers()</field>
+	        <field name="state">code</field>
+	        <field name="nextcall" eval="(DateTime.now().strftime('%Y-%m-%d 23:59:59'))"/>
+	    </record>
+	</data>
+</odoo>

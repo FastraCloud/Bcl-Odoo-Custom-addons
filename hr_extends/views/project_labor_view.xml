@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="view_project_labour_inherit_salary_line">
+	    <field name="name">view.project.labour.inherit.salary.line</field>
+	    <field name="model">project.labour</field>
+	    <field name="inherit_id" ref="project_costing.project_labour_view_form"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//header" position="inside">
+	    		<button name="compute_project_salary_line" string="Add Project Salary Line" attrs="{'invisible':[('state','!=', 'draft')]}" class="oe_highlight" type="object" groups="base.group_user"/>
+	    		<!--<button name="create_receipt" string="Create Receipt" attrs="{'invisible':[('state','!=', 'draft')]}" class="oe_highlight" type="object" groups="base.group_user"/>-->
+	    	</xpath>
+	    	<xpath expr="//page[last()]" position="after">
+	    		<page string="Project Salary Line" name="salary_line">
+	    			<field name="project_salary_line_ids" nolabel="1" readonly="1">
+	    				<tree string="salary line">
+	    					<field name="employee_id"/>
+	    					<field name="date_from"/>
+	    					<field name="date_to"/>
+	    					<field name="prelims_category_id"/>
+	    					<field name="gross_amount"/>
+	    					<field name="struct_id"/>
+						</tree>
+	    			</field>
+	    		</page>
+				<page string="Accounting" groups="base.group_system">
+					<group colspan="4">
+						<field name="journal_id"/>
+						<field name="account_debit"/>
+						<field name="account_credit"/>
+						<field name="account_tax_id"/>
+					</group>
+				</page>
+	    	</xpath>
+	    	
+	    	<field name="total_labour_cost" position="after">
+	    		<field name="account_id" attrs="{'required':[('state','=', 'Approve')]}"/>
+	    	</field>
+			<field name="analytical_account" position="before">
+				<field name="name"/>
+			</field>
+	    	
+	    	<xpath expr="//sheet/group[1]" position="before">
+	    		<div class="oe_button_box">
+	                <!--<button name="action_view_receipts" type="object" class="oe_stat_button" icon="fa-bars" attrs="{'invisible': [('state', '!=', 'Approve')]}" string="Receipts">
+	                </button>-->
+					<button class="oe_stat_button" name="button_journal_entries"
+							string="Journal Entries" type="object"
+							attrs="{'invisible':[('move_ids','=',[])]}" icon="fa-bars"/>
+					<field name="move_ids" invisible="1"/>
+	            </div>
+	    	</xpath>
+	    	
+	    	
+	    	<!-- Trade change	-->
+	    	<xpath expr="//field[@name='daily_labour_cost']/tree/field[@name='level']" position="after">
+				<field name="trade" string="Casual Worker"/>
+				<field name="bank_name"/>
+				<field name="bank_account_id"/>
+	    	</xpath>
+	    	<xpath expr="//field[@name='labour_cost']/tree/field[@name='element']" position="after">
+				<field name="trade" string="Casual Worker"/>
+				<field name="bank_name"/>
+				<field name="bank_account_id"/>
+	    	</xpath>
+	    </field>
+	</record>
+</odoo>

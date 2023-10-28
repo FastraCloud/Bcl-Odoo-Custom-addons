@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_partner_form_inherit_tin" model="ir.ui.view">
+            <field name="name">view.partner.form.inherit.tin</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="tin" attrs="{'invisible': [('is_subcontractor', '=', False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="res_partner_view_purchase_buttons_inherit_subcontractor_purchase" model="ir.ui.view">
+            <field name="name">res.partner.view.purchase.buttons.inherit.subcontractor.purchase</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.res_partner_view_purchase_buttons"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="is_subcontractor" invisible="1"/>
+                </field>
+                <xpath expr="//button[@name='%(purchase.act_res_partner_2_purchase_order)d']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|',('is_subcontractor', '=', True),('supplier', '=', False)]}</attribute>
+                </xpath>
+                <button name="toggle_active" position="before">
+                    <button class="oe_stat_button" name="%(purchase.act_res_partner_2_purchase_order)d" type="action"
+                        groups="purchase.group_purchase_user"
+                        attrs="{'invisible': ['|',('is_subcontractor', '=', False), ('supplier', '=', False)]}" icon="fa-shopping-cart">
+                        <field string="Contracts" name="subcontractor_purchase_order_count" widget="statinfo"/>
+                    </button>
+                </button>
+            </field>
+        </record>
+
+        <record id="partner_purchase_account_buttons_inherit_subcontractor_purchase" model="ir.ui.view">
+            <field name="name">partner.purchase.account.buttons.inherit.subcontractor.purchase</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.res_partner_view_purchase_account_buttons"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(purchase.act_res_partner_2_supplier_invoices)d']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|',('is_subcontractor', '=', True),('supplier', '=', False)]}</attribute>
+                </xpath>
+                <button name="toggle_active" position="before">
+                    <button class="oe_stat_button" name="%(purchase.act_res_partner_2_supplier_invoices)d" type="action"
+                        attrs="{'invisible': [('is_subcontractor', '=', False)]}" icon="fa-pencil-square-o" help="Vendor Bills">
+                        <field string="Subcontractor's Bills" name="subcontractor_supplier_invoice_count" widget="statinfo"/>
+                    </button>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

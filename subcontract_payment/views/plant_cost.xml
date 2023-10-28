@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Plant Cost -->
+	<record id="action_plant_cost_invoice" model="ir.actions.act_window">
+	    <field name="name">Plant Cost</field>
+	    <field name="res_model">account.voucher</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,kanban,form</field>
+	    <field name="domain">[('journal_id.type','=','purchase'), ('voucher_type','=','purchase')]</field>
+	    <field name="context">{'default_voucher_type': 'purchase', 'voucher_type': 'purchase'}</field>
+	    <field name="target">current</field>
+	    <field name="help" type="html">
+	      <p class="o_view_nocontent_smiling_face">
+	        Register a new plant cost
+	      </p>
+	    </field>
+	</record>
+        
+	<record id="action_sale_receipt_tree_plant_cost" model="ir.actions.act_window.view">
+		<field eval="1" name="sequence"/>
+		<field name="view_mode">tree</field>
+		<field name="view_id" ref="view_voucher_tree_purchase_subcontract_payment"/>
+		<field name="act_window_id" ref="action_plant_cost_invoice"/>
+	</record>
+	
+	<record id="action_purchase_receipt_form_plant_cost" model="ir.actions.act_window.view">
+		<field eval="2" name="sequence"/>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="account_voucher.view_purchase_receipt_form"/>
+		<field name="act_window_id" ref="action_plant_cost_invoice"/>
+	</record>
+
+    <menuitem
+        id="menu_action_plant_cost_invoice"
+        action="action_plant_cost_invoice"
+        parent="project_costing.menu_root"
+        sequence="500" />
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="invoice_supplier_form_inherit_prelims" model="ir.ui.view">
+			<field name="name">invoice.supplier.form.inherit.prelims</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='prelim_category_ids']" position="attributes">
+					<attribute name="string">Cost Code</attribute>
+					<attribute name="required">0</attribute>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model="ir.ui.menu" id="account.prelims_category_menu">
+			<field name="name">Cost Code</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="analytic.prelims_category_action">
+			<field name="name">Cost Code</field>
+		</record>
+	</data>
+</odoo>

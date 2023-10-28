@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_project_costing_form_inherit_pages" model="ir.ui.view">
+			<field name="name">view.project.costing.form.inherit.pages</field>
+			<field name="model">project_cost.project_cost</field>
+			<field name="inherit_id" ref="project_costing.form_2" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[last()]" position="after">
+					<page name="project_labour_actual" string="Project Labour Actual">
+						<field name="project_labor_actual_ids" readonly="1"/>
+					</page>
+					<page name="material_actual" string="Material Actual">
+						<field name="material_actual_ids" readonly="1"/>
+					</page>
+					<page name="other_material_actual" string="Other Material Actual">
+						<field name="other_material_actual_ids" readonly="1"/>
+					</page>
+					<page name="subcontractor_bill_actual" string="Subcontractor Bill Actual">
+						<field name="subcontractor_bill_actual_ids" nolabel="1" readonly="1">
+							<tree string="subcontractor bill tree">
+								<field name="partner_id" invisible="1"/>
+			                    <field name="source_email" invisible="1"/>
+			                    <field name="invoice_icon" string=" "/>
+			                    <field name="vendor_display_name" groups="base.group_user" string="Vendor"/>
+			                    <field name="date_invoice" string="Bill Date"/>
+			                    <field name="number"/>
+			                    <field name="reference"/>
+			                    <field name="commercial_partner_id" invisible="1"/>
+			                    <field name="name" invisible="1"/>
+			                    <field name="journal_id" invisible="1"/>
+			                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+			                    <field name="date_due"/>
+			                    <field name="origin"/>
+			                    <field name="amount_untaxed_invoice_signed" string="Tax Excluded" sum="Total"/>
+			                    <field name="amount_tax_signed" string="Tax" sum="Total"/>
+			                    <field name="amount_total_signed" string="Total" sum="Total"/>
+			                    <field name="residual_signed" string="To Pay" sum="To pay"/>
+			                    <field name="currency_id" invisible="1"/>
+			                    <field name="company_currency_id" invisible="1"/>
+			                    <field name="block_work_id"/>
+			                    <field name="iron_bender_id"/>
+			                    <field name="state"/>
+			                    <field name="type" invisible="context.get('type',True)"/>
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

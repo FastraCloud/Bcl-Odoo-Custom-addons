@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_iron_bender_form" model="ir.ui.view">
+	    <field name="name">view.iron.bender.form</field>
+	    <field name="model">iron.bender</field>
+	    <field name="arch" type="xml">
+	        <form string="Block Work">
+	        	<header>
+	        		<button name='submit' type="object" string="Submit" class="oe_highlight" states="draft" groups="project_costing.group_project_costing_user"/>
+	        		<button name='validate' type="object" string="Validate" class="oe_highlight" states="submit" groups="project_costing.group_project_costing_manager"/>
+	        		<button name='cancel' type="object" string="Cancel"/>
+	        		<field name="state" widget="statusbar" statusbar_visible="draft,submit,validate"/>
+	        	</header>
+	        	<sheet>
+	        		<div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+	        		<group>
+	        			<group>
+	        				<field name="analytical_account_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	        				<field name="date"/>
+	        				<field name="bank_account"/>
+	        			</group>
+	        			<group>
+	        				<field name="subcontractor"/>
+	        				<field name="subcontract"/>
+	        				<field name="valuation_no"/>
+	        			</group>
+	        		</group>
+	        		<notebook>
+	        			<page string="Line" name="line">
+	        				<field name="iron_bender_line_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+	        					<form string="Iron bender Line Form">
+	        						<group>
+	        							<field name="product_id"/>
+	        							<field name="account_id"/>
+	        							<field name="description" required="1"/>
+	        							<field name="iron_bender_reinforcement_size_ids" string="Reinforcement Size">
+	        								<tree string="Size tree" editable="bottom">
+	        									<field name="reinforcement_bar_size" string="Size"/>
+	        									<field name="qty"/>
+	        								</tree>
+	        							</field>
+	        							<field name="qty_done"/>
+	        							<field name="unit_id"/>
+	        							<field name="rate"/>
+	        							<field name="amount"/>
+	        							<field name="done"/>
+	        							<field name="amount_due"/>
+	        						</group>
+	        					</form>
+	        					<tree string="iron bender line tree">
+	        						<field name="product_id"/>
+	        						<field name="description"/>
+	        						<field name="account_id"/>
+	        						<field name="qty_done"/>
+	        						<field name="unit_id"/>
+	        						<field name="rate"/>
+	        						<field name="amount" readonly="1"/>
+	        						<field name="done"/>
+	        						<field name="amount_due" readonly="1"/>
+	        					</tree>
+	        				</field>
+	        				
+	        				<group class="oe_subtotal_footer oe_right" colspan="2" name="block_work_total">
+	        					<field name="discount" string="Less: WHT"/>
+	        					<field name="amount_due" widget="monetary" readonly="1"/>
+                                <field name="discount_amount" readonly="1"/>
+                                <field name="previous_payment_amount" readonly="1"/>
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="total_amount_due" string="Amount Due"/>
+                                </div>
+                                <field name="total_amount_due" readonly="1" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" />
+                            </group>
+	        			</page>
+	        			<page name="previous_payment" string="Previous Payments">
+	        				<field name="iron_bender_previous_payment_ids" nolabel="1" attrs="{'readonly': [('state', '!=', 'draft')]}">
+        						<tree string="previous Payment" editable="bottom">
+        							<field name="name"/>
+        							<field name="amount"/>
+        						</tree>
+							</field>
+	        			</page>
+	        		</notebook>
+	        	</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="view_iron_bender_tree" model="ir.ui.view">
+	    <field name="name">view.iron.bender.tree</field>
+	    <field name="model">iron.bender</field>
+	    <field name="arch" type="xml">
+	    	<tree string="Iron Bender Tree">
+	    		<field name="name"/>
+	    		<field name="analytical_account_id"/>
+	    		<field name="subcontractor"/>
+	    		<field name="subcontract"/>
+	    		<field name="date"/>
+	    	</tree>
+		</field>
+	</record>
+	
+	<record id="action_iron_bender" model="ir.actions.act_window">
+        <field name="name">Iron Bender</field>
+        <field name="res_model">iron.bender</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+    
+    <menuitem
+        id="menu_action_iron_bender"
+        action="action_iron_bender"
+        parent="subcontract_payment.menu_action_subcontract_labour_invoice"
+        sequence="20" />
+</odoo>

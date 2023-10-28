@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_salary_line,access.project.salary.line,model_project_salary_line,,1,1,1,1
+access_casual_workers,access.casual.workers,model_casual_workers,,1,1,1,1

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fastra_asset_registration,access.fastra.asset.registration,model_fastra_asset_registration,,1,1,1,1
+access_register_asset_maintenance_cost,access.register.asset.maintenance.cost,model_register_asset_maintenance_cost,,1,1,1,1
+access_asset_movement,access.asset.movement,model_asset_movement,,1,1,1,1

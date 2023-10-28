@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="asset_report_form_view" model="ir.ui.view">
+            <field name="name">asset.report.form</field>
+            <field name="model">asset.report</field>
+            <field name="arch" type="xml">
+                <form string="Asset Report Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="type"/>
+                            </group>
+                            <group>
+                                <field name="from_date" attrs="{'invisible': [('type', '!=', 'project')]}"/>
+                                <field name="to_date" attrs="{'invisible': [('type', '!=', 'project')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="project_ids" attrs="{'invisible': [('type', '!=', 'project')]}">
+                                <tree string="Project">
+                                    <field name="name" string="Name"/>
+                                </tree>
+                            </field>
+                            <field name="asset_registration_ids" attrs="{'invisible': [('type', '!=', 'asset')]}">
+                                <tree string="Asset">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="print_pdf" string="PDF" type="object" class="oe_highlight"/>
+                        <button name="print_excel" string="Excel" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="asset_report_act_window" model="ir.actions.act_window">
+            <field name="name">Asset Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">asset.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem name="Report" id="asset_report_menu" sequence="30"
+                  parent="maintenance_menu_root" action="asset_report_act_window"/>
+
+    </data>
+</odoo>

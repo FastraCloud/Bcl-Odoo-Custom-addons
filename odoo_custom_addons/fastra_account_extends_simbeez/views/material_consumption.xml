@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_consumption_request_form_inherit_prelims" model="ir.ui.view">
+			<field name="name">view.consumption.request.form.inherit.prelims</field>
+			<field name="model">stock.inventory</field>
+			<field name="inherit_id" ref="od_material_consumption.view_consumption_request_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='line_ids']/tree/field[@name='prelim_category_ids']" position="attributes">
+					<attribute name="string">Cost Code</attribute>
+					<attribute name="required">0</attribute>
+				</xpath>
+
+				<xpath expr="//field[@name='line_ids']/tree/field[@name='product_quty']" position="attributes">
+					<attribute name="readonly">1</attribute>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
